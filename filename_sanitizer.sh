@@ -2,7 +2,7 @@
 
 #based on https://github.com/sourikd/filename_sanitizer
 
-version=1.2.1
+version=1.2.2
 scriptname=$(basename "$0")
 
 Help()
