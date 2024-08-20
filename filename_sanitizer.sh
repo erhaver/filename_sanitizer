@@ -1,4 +1,39 @@
 #!/bin/sh
+
+#based on https://github.com/sourikd/filename_sanitizer
+
+version=1.2.1
+scriptname=$(basename "$0")
+
+Help()
+{
+   # Display Help
+   echo "$scriptname renames filenames in specific directory (current if non given)"
+   echo
+   echo "Syntax: $scriptname [directory]"
+   echo "options:"
+   echo "h     Print this Help."
+   echo "V     Print software version and exit."
+   echo
+}
+
+Version()
+{
+  # Display Version
+  echo "Version: $version"
+}
+
+while getopts ":hV" option; do
+   case $option in
+      h) # display Help
+         Help
+         exit;;
+      V) # display version
+         Version
+         exit;;
+   esac
+done
+
 PASSED=$1
 
 if [ $# -eq 0 ]
@@ -19,7 +54,6 @@ then
 fi
 
 
-scriptname=$(basename "$0")
 ls -A --ignore="$scriptname" > lsfile.txt
 declare -A filenumber
 
