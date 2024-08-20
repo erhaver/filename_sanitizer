@@ -1,4 +1,24 @@
 #!/bin/sh
+PASSED=$1
+
+if [ $# -eq 0 ]
+
+then
+    echo "Working in current direcotry"
+  else
+    if [[ -d $PASSED ]]; then
+    echo "Working in $PASSED directory"
+    cd $PASSED
+    elif [[ -f $PASSED ]]; then
+    echo "$PASSED is a file"
+    exit 1
+    else
+    echo "$PASSED is not valid"
+    exit 1
+  fi
+fi
+
+
 scriptname=$(basename "$0")
 ls -A --ignore="$scriptname" > lsfile.txt
 declare -A filenumber
