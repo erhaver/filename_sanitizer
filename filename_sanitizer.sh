@@ -13,8 +13,23 @@ cat lsfile.txt | while read filename;
         continue
     fi	
     dot="."
+
     extension=$([[ "$filename" == *$dot* ]] && echo "${filename##*.}" || echo '')
-   
+    #flexible array of allowed extensions, can also be modified a bit to use inavlid extension arrays
+    valid_ext=("jpeg" "jpg" "png" "apng" "bmp" "gif" "ico" "svg" "tiff" "webp" "txt" "md" "pdf" "")
+    if [[ " ${valid_ext[@]} " =~ " ${extension} "  ]]; then
+	:
+    #This prevents checking of this script and the temp lsfile created
+    elif [[ $filename == "filename_sanitizer.sh" || $filename == "lsfile.txt" ]];then
+	: 
+    #in case of private files like .image with one dot in the beginning
+    elif [[ $filename == ".${extension}" ]];then
+	:
+
+    else
+	echo "ERROR : Please have a valid extension for web image file: $filename"
+	exit 125
+    fi   
     #tr is used to make the filenames web safe
     mod=`echo "$filename" | sed -e 's/\(.*\)/\L\1/' | tr ' ' '-' | tr '_' '-'`
     #handling filenames which get truncated to special names like '.', '..' or ''(empty filename)
