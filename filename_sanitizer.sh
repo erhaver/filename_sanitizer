@@ -85,7 +85,7 @@ cat lsfile.txt | while read filename;
 	exit 125
     fi   
     #tr is used to make the filenames web safe
-    mod=`echo "$filename" | sed -e 's/\(.*\)/\L\1/' | tr ' ' '-' | tr '_' '-'`
+    mod=`echo "$filename" | sed -e 's/\(.*\)/\L\1/' | tr ' ' '-' | tr '_' '-' | sed -e 's/[^[:alnum:]]//g'`
     #handling filenames which get truncated to special names like '.', '..' or ''(empty filename)
     if [[ $mod == "" || $mod == "." || $mod == ".." ]];then
 	   mod="1"
