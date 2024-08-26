@@ -81,7 +81,7 @@ cat lsfile.txt | while read filename;
 	:
 
     else
-	echo "ERROR : Please have a valid extension for web image file: $filename"
+	echo "ERROR : Please have a valid extension for file: $filename"
 	exit 125
     fi   
     #tr is used to make the filenames web safe
